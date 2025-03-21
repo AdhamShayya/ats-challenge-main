@@ -203,7 +203,7 @@ export default function CVUpload({ onUpload }: CVUploadProps) {
       </div>
 
       {/* Upload Button     space between the buttons*/}   
-      <div className="flex h-14 space-x-4">
+      <div className="flex h-13 space-x-4">
       {parsedText && (
           <button
             type="button"
