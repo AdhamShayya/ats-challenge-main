@@ -5,19 +5,27 @@ import { JobDescription } from '../models/JobDescriptionModel';
 @injectable()
 export class JobDescriptionService {
   async saveJobDescription(title: string, description: string, requirements: string, company?: string) {
-    const jobDescription = new JobDescription({ title, description, requirements, company });
-    await jobDescription.save();
-    return jobDescription;
+    try {
+      // Create a new JobDescription document and save it to the database
+      const jobDescription = new JobDescription({ title, description, requirements, company });
+      await jobDescription.save();
+      return jobDescription;
+    } catch (error) {
+      // Log the error and rethrow with a user-friendly message
+      console.error('Error saving job description:', error);
+      throw new Error('Failed to save the job description. Please try again later.');
+    }
   }
 
-async getJobDescriptions() {
-  try {
-    const jobDescriptions = await JobDescription.find();
-    console.log('Job Descriptions fetched successfully:', jobDescriptions);
-    return jobDescriptions;
-  } catch (error) {
-    console.error('Error fetching job descriptions:', error);
-    throw error;
+  async getJobDescriptions() {
+    try {
+      // Fetch all job descriptions from the database
+      const jobDescriptions = await JobDescription.find();
+      return jobDescriptions;
+    } catch (error) {
+      // Log the error and rethrow with a user-friendly message
+      console.error('Error fetching job descriptions:', error);
+      throw new Error('Failed to fetch job descriptions. Please try again later.');
+    }
   }
-}
 }
