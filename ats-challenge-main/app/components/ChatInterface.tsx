@@ -16,6 +16,16 @@ export default function ChatInterface({ questions = [], onComplete }: ChatInterf
   const [startTime, setStartTime] = useState<number>(Date.now());  // State to track the start time of the current question
   const [answer, setAnswer] = useState<string>('');  // State to store the user's current answer 
   const [isComplete, setIsComplete] = useState<boolean>(false);   // State to track if the interview is complete
+  const [elapsedTime, setElapsedTime] = useState<number>(0); // New state for real-time elapsed time
+  
+   // Effect to update the elapsed time every second
+   useEffect(() => {
+    const interval = setInterval(() => {
+      setElapsedTime((Date.now() - startTime) / 1000);
+    }, 10);
+
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, [startTime]);
 
   const handleAnswer = () => {
 
@@ -104,7 +114,7 @@ export default function ChatInterface({ questions = [], onComplete }: ChatInterf
           >
             Submit Answer
           </button>
-          <p className="text-sm text-medium-gray">Time taken: {((Date.now() - startTime) / 1000).toFixed(1)} seconds</p>
+          <p className="text-sm text-medium-gray">Time taken: {elapsedTime} seconds</p>
         </>
       ))}
     
