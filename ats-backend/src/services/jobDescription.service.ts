@@ -10,7 +10,14 @@ export class JobDescriptionService {
     return jobDescription;
   }
 
-  async getJobDescriptions() {
-    return JobDescription.find().sort({ createdAt: -1 });
+async getJobDescriptions() {
+  try {
+    const jobDescriptions = await JobDescription.find();
+    console.log('Job Descriptions fetched successfully:', jobDescriptions);
+    return jobDescriptions;
+  } catch (error) {
+    console.error('Error fetching job descriptions:', error);
+    throw error;
   }
+}
 }

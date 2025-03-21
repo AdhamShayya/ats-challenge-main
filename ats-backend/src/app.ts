@@ -9,6 +9,8 @@ import { JobDescriptionRoutes } from './routes/jobDescription';
 
 const app = express();
 
+// Connect to MongoDB
+connectDB();
 // Enable CORS
 app.use(cors());
 
@@ -21,7 +23,5 @@ app.use('/api/questions', QuestionRoutes);
 app.use('/api/evaluation', EvaluationRoutes);
 app.use('/api/jobDescription', JobDescriptionRoutes);
 
-// Connect to MongoDB
-connectDB();
 
 export { app };
